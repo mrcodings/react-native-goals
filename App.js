@@ -1,42 +1,37 @@
 import * as React from 'react';
-import { Appbar, BottomNavigation, Text } from 'react-native-paper';
-import { View } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Music from './components/Music';
+import { Text, View, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import MainScreen from './components/MainScreen';
 
-const MusicRoute = () => <Music />;
-const AlbumsRoute = () => <Text>Albums</Text>;
-const RecentsRoute = () => <Text>Recents</Text>;
-const NotificationsRoute = () => <Text>Notifications</Text>;
-
-const MyComponent = () => {
-  const _goBack = () => console.log('Went back');
-  const _handleSearch = () => console.log('Searching');
-  const _handleMore = () => console.log('Shown more');
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'music', title: 'Favorites', focusedIcon: 'heart', unfocusedIcon: 'heart-outline' },
-    { key: 'albums', title: 'Albums', focusedIcon: 'album' },
-    { key: 'recents', title: 'Recents', focusedIcon: 'history' },
-    { key: 'notifications', title: 'Notifications', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
-  ]);
-
-  const renderScene = BottomNavigation.SceneMap({
-    music: MusicRoute,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-    notifications: NotificationsRoute,
-  });
-
+function ModalPopup({ navigation }) {
   return (
-    <SafeAreaProvider>
-      <BottomNavigation
-        navigationState={{ index, routes }}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-      />
-    </SafeAreaProvider>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+      <Button onPress={() => navigation.goBack()} title="Dismiss" />
+    </View>
   );
-};
+}
 
-export default MyComponent;
+const RootStack = createStackNavigator();
+
+function MyTabs() {
+  return (
+    <RootStack.Navigator>
+      <RootStack.Group>
+        <RootStack.Screen name="Applicanity" component={MainScreen} options={{ headerShown: false }} />
+      </RootStack.Group>
+      <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+        <RootStack.Screen name="Create Something" component={ModalPopup} />
+      </RootStack.Group>
+    </RootStack.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
+}
