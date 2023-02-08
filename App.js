@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Appbar, BottomNavigation, Text } from 'react-native-paper';
+import { View } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Music from './components/Music';
 
-const MusicRoute = () => <Text>Music</Text>;
+const MusicRoute = () => <Music />;
 const AlbumsRoute = () => <Text>Albums</Text>;
 const RecentsRoute = () => <Text>Recents</Text>;
 const NotificationsRoute = () => <Text>Notifications</Text>;
@@ -28,12 +30,6 @@ const MyComponent = () => {
 
   return (
     <SafeAreaProvider>
-      <Appbar.Header style={{ backgroundColor: "#8250df", color: "#ffffff" }}>
-        {/* <Appbar.BackAction onPress={_goBack} /> */}
-        <Appbar.Content title="Title" color="#ffffff" />
-        <Appbar.Action icon="magnify" color="#ffffff" onPress={_handleSearch} />
-        {/* <Appbar.Action icon="dots-vertical" onPress={_handleMore} /> */}
-      </Appbar.Header>
       <BottomNavigation
         navigationState={{ index, routes }}
         onIndexChange={setIndex}
