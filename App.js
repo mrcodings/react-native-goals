@@ -3,6 +3,7 @@ import { Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainScreen from './components/MainScreen';
+import { StatusBar } from 'expo-status-bar';
 
 function ModalPopup({ navigation }) {
   return (
@@ -19,7 +20,7 @@ function MyTabs() {
   return (
     <RootStack.Navigator>
       <RootStack.Group>
-        <RootStack.Screen name="Applicanity" component={MainScreen} options={{ headerShown: false }} />
+        <RootStack.Screen name="Back" component={MainScreen} options={{ headerShown: false }} />
       </RootStack.Group>
       <RootStack.Group screenOptions={{ presentation: 'modal' }}>
         <RootStack.Screen name="Create Something" component={ModalPopup} />
@@ -31,6 +32,7 @@ function MyTabs() {
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar style='dark' />
       <MyTabs />
     </NavigationContainer>
   );
